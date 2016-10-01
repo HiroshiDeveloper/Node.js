@@ -5,7 +5,15 @@ var connection = require('../mySqlConnection');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Hello World' });
+	//res.render('index', { title: 'Database API' });
+	var query = 'SELECT *, DATE_FORMAT(created_at, \'%Y / %m / %d : %k hrs %m mins %s secs\') AS created_at FROM boards';
+	connection.query(query, function(err, rows){
+		console.log(rows);
+		res.render('index', {
+			title: 'Database API',
+			boardList: rows
+		});
+	});
 });
 
 
