@@ -26,12 +26,14 @@
 	<label>List</label>
 	<ul class="main-list list-group">
 		<% boardList.forEach(function(boardItem) { %>
-		<li class="main-list__item list-group-item">
-			<div class="board">
-				<p class="board__title"><%= boardItem.title %></p>
-				<p class="board__date"><%= boardItem.created_at %></p>
-			</div>
-		</li>
+		<a href="/boards/<%= boardItem.board_id %>" class="board">
+			<li class="main-list__item list-group-item">
+				<div class="board">
+					<p class="board__title"><%= boardItem.title %></p>
+					<p class="board__date"><%= boardItem.created_at %></p>
+				</div>
+			</li>
+		</a>
 		<% }); %>
 	</ul>
     </div>
