@@ -4,13 +4,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('../../express-session');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var boards = require('./routes/boards');
 var register = require('./routes/register');
 var login = require('./routes/login');
+var logout = require('./routes/logout');
+
+var setUser = require('./setUser');
 
 var app = express();
 
@@ -31,11 +34,12 @@ app.use(session({
 	saveUninitialized : true
 }));
 
-app.use('/', routes);
+app.use('/', login, setUser, routes);
 app.use('/users', users);
-app.use('/boards', boards);
+app.use('/boards', setUser, boards);
 app.use('/register', register);
 app.use('/login', login);
+app.use('/logout', logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

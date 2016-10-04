@@ -29,6 +29,10 @@
 		</ul>
 	</div>
 	<% } %>
+	
+	<% if (typeof user !== 'undefined') { %>
+		<span class="login-user">Log in as <%= user.user_name %></span>
+	<% } %>
 
 	<a href="/" class="btn">Back To Main Page</a>
 </div>
