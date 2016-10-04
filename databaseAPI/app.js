@@ -34,7 +34,7 @@ app.use(session({
 	saveUninitialized : true
 }));
 
-app.use('/', login, setUser, routes);
+app.use('/', setUser, routes);
 app.use('/users', users);
 app.use('/boards', setUser, boards);
 app.use('/register', register);

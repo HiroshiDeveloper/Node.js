@@ -7,6 +7,19 @@ a {
   	color: #00B7FF;
 }
 
+
+.centerText{
+	text-align: center;
+}
+
+.submit{
+	margin: 5px;
+}
+
 .right {
 	float : right; 
+}
+
+.error{
+	color: red;
 }
