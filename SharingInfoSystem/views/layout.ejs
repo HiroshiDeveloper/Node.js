@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<link rel='stylesheet' href='/stylesheets/style.css'>
+</head>
+<body>
+	<div class="wrapper">
+    		<%- body %>
+    		<% if (typeof user !== 'undefined') { %>
+        		<a href="/logout" class="btn">Logout</a>
+    		<% } else { %>
+        		<a href="/register" class="btn">SignUp</a>
+        		<a href="/login" class="btn">Login</a>
+    		<% } %>
+	</div>
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    
+    <!-- css -->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+    <!-- bootstrap -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  </head>
+  
+  <body>
+	<div class="jumbotron text-center">
+		<h1><%= title %></h1>
+	</div>
+    	<div class="wrapper">
+		<% layout('layout') %>
+		<form action="/" method="post" class="board-form">Title: <input type="text" name="title" class="input" required><button type="submit" class="right submit btn btn-primary">Create</button>
+		</form><br/>
+		<hr/>
+		<label>List</label>
+		<ul class="main-list list-group">
+			<% boardList.forEach(function(boardItem) { %>
+				<li class="main-list__item list-group-item">
+					<div class="board">
+						<a href="/boards/<%= boardItem.board_id %>" class="board"><p class="board__title"><%= boardItem.title %></p></a>
+						<p class="board__date"><%= boardItem.user_name %> : <%= boardItem.created_at %></p>
+					</div>
+				</li>
+			<% }); %>
+		</ul>
+		<% if (typeof user !== 'undefined') { %>
+			<span class="login-user">Log in as <%= user.user_name %></span>
+		<% } %>
+
+		<a href="/logout">Log out</a>
+    	</div>
+
+    	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    	<script src="/socket.io/socket.io.js"></script>
+    	<script>
+    		var socket = io.connect();
+    		$('button').on('click', function() {
+    			socket.emit('request');
+   		});
+    		socket.on('response', function() {
+    			alert('Get Response!!');
+    		});
+    	</script>
+</body>
+</html>
