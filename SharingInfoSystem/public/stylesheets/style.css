@@ -1,25 +1,50 @@
 body {
-  	padding: 50px;
-  	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  	padding : 50px;
+  	font : 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  	color: #00B7FF;
+  	color : #00B7FF;
 }
 
 
 .centerText{
-	text-align: center;
+	text-align : center;
+}
+
+.rightText{
+	text-align : right;
 }
 
 .submit{
-	margin: 5px;
+	margin : 5px;
 }
 
 .right {
 	float : right; 
 }
 
+.left{
+	float : left;
+}
+
 .error{
 	color: red;
+}
+
+.delete{
+	width:30px;
+	height:30px;
+	border-radius:15px;
+	border-color:#cc0000;
+	font-size:15px;
+	color:#fff;
+	text-align:center;
+	background:#cc0000
+}
+
+li:hover {
+	background-color: #E3F9FA;
+};
+
 }

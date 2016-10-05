@@ -11,10 +11,14 @@
 	<div class="wrapper">
     		<%- body %>
     		<% if (typeof user !== 'undefined') { %>
-        		<a href="/logout" class="btn">Logout</a>
+			<div class="textRight">
+        			<a href="/logout" class="btn">Log out</a>
+			</div>
     		<% } else { %>
-        		<a href="/register" class="btn">SignUp</a>
-        		<a href="/login" class="btn">Login</a>
+			<div class="textRight">
+				<a href="/register" class="btn">Sign Up</a><br/>
+        			<a href="/login" class="btn">Log In</a>
+			</div>
     		<% } %>
 	</div>
 </body>
