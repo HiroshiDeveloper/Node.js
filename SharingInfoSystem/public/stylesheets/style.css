@@ -33,6 +33,7 @@ a {
 }
 
 .delete{
+	margin-left:10px;
 	width:30px;
 	height:30px;
 	border-radius:15px;
@@ -46,5 +47,24 @@ a {
 li:hover {
 	background-color: #E3F9FA;
 };
+
+
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	flex-flow: column nowrap;
+	max-width: 300px;
+}
+
+.text {
+	flex: 1;
+}
+
+p {
+	word-break: break-all;
+	width: 300px;   
+	width:100%; 
+}
+
 
 }

@@ -28,13 +28,13 @@
 		<ul class="main-list list-group">
 			<% boardList.forEach(function(boardItem) { %>
 				<li class="main-list__item list-group-item">
-					<a href="/boards/<%= boardItem.board_id %>"><label class="board__title"><%= boardItem.title %></label><button class="right delete">X</button><br/><br/><p class="board__date rightText"><%= boardItem.user_name %><br/><%= boardItem.created_at %></p></a>
+					<a href="/boards/<%= boardItem.board_id %>"><label class="board__title"><%= boardItem.title %></label></a><button class="right delete">X</button><br/><br/><p class="board__date rightText"><%= boardItem.user_name %><br/><%= boardItem.created_at %></p>
 				</li>
 			<% }); %>
 		</ul>
     	</div>
 
-    	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     	<script src="/socket.io/socket.io.js"></script>
     	<script>
     		var socket = io.connect();

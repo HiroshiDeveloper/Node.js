@@ -32,4 +32,15 @@ router.post('/:board_id', function(req, res, next){
 	});
 });
 
+router.delete('/:board_id', function(req, res, next){
+	console.log("=========PASS========");
+	var boardId= req.params.board_id;
+	var messageId = req.params.message_id;
+	var query = 'DELETE FROM messages WHERE id =' + messageId;
+
+	connection.query(query, function(err, rows){
+		res.redirect('/' + boardId);
+	});
+});
+
 module.exports = router;

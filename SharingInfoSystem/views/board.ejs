@@ -2,40 +2,53 @@
 <html lang="ja">
 <head>
 	<title><%= title %></title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta name="format-detection" content="telephone=no">
-	<link rel='stylesheet' href='/stylesheets/style.css'>
+
+	<!-- css -->
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+		    
+        <!-- bootstrap -->
+        <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<div class="rightText">
+		<% if (typeof user !== 'undefined') { %>
+			<span class="login-user">Log in as <%= user.user_name %></span><br/>
+			<a href="/logout">Log out</a>
+		<% } %>
+	</div>
+
 	<div class="wrapper">
-		<% layout('layout') %>
-		<p class="main-title"><%= title %></p>
+		<h3 class="main-title">"<%= title %>" Board</h3>
 		<form action="/boards/ <%= board.board_id %>" method="post" class="board-form">
-			<input type="text" name="message" class="input" required>
-			<button type="submit" class="submit">POST</button>
-		</form><br/>
+			<input type="text" name="message" class="input form-control" placeholder="Enter Message"  required>
+			<button type="submit" class="right submit btn btn-primary">POST</button>
+		</form><br/><br/><br/>
 
 		<% if (messageList.length) { %>
-			<div class="white-bg">
-				<ul class="main-list">
-					<% messageList.forEach(function(messageItem) { %>
-						<li class="main-list__item">
-							<div class="message">
-								<p class="message__title"><%= messageItem.message %></p>
-								<p class="message__date"><%= messageItem.user_name %> <%= messageItem.created_at %></p>
+			<ul class="main-list list-group">
+				<% messageList.forEach(function(messageItem) { %>
+					<li class="main-list__item list-group-item">
+						<div class="container">
+							<form action="/boards/ <%= board.board_id %>" method="delete" class="board-form">
+								<button type="submit"  class="right delete">X</button>
+							</form>
+							<p class="message__date rightText"><%= messageItem.created_at %><br/><%= messageItem.user_name %></p>
+							<div class="text">
+								<p class="message__title message"><%= messageItem.message %></p>
 							</div>
-						</li>
-					<% }); %>
-				</ul>
-			</div>
+						</div>
+					</li>
+				<% }); %>
+			</ul>
 		<% } %>
-	
-		<% if (typeof user !== 'undefined') { %>
-			<span class="login-user">Log in as <%= user.user_name %></span>
-		<% } %>
-
-		<a href="/" class="btn">Back To Main Page</a>
+		
+		<div class="centerText">
+			<a href="/">Back To Main Page</a>
+		</div>
 	</div>
 </body>
 </html>
