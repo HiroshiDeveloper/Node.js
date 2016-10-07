@@ -7,8 +7,8 @@
 6 silly lifecycle first@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle first@0.0.0~start: first@0.0.0
 8 verbose lifecycle first@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle first@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/home/hiroshi/NodeJS/WorkPlace/databaseAPI/node_modules/.bin:/usr/local/bin:/home/hiroshi/bin:/home/hiroshi/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-10 verbose lifecycle first@0.0.0~start: CWD: /home/hiroshi/NodeJS/WorkPlace/databaseAPI
+9 verbose lifecycle first@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/home/hiroshi/NodeJS/WorkPlace/SharingInfoSystem/node_modules/.bin:/usr/local/bin:/home/hiroshi/bin:/home/hiroshi/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+10 verbose lifecycle first@0.0.0~start: CWD: /home/hiroshi/NodeJS/WorkPlace/SharingInfoSystem
 11 silly lifecycle first@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle first@0.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle first@0.0.0~start: Failed to exec start script
@@ -23,7 +23,7 @@
 14 verbose stack     at maybeClose (internal/child_process.js:852:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
 15 verbose pkgid first@0.0.0
-16 verbose cwd /home/hiroshi/NodeJS/WorkPlace/databaseAPI
+16 verbose cwd /home/hiroshi/NodeJS/WorkPlace/SharingInfoSystem
 17 error Linux 4.4.0-36-generic
 18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
 19 error node v6.3.1

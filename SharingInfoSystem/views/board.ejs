@@ -12,6 +12,24 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+        	$(document).on('click', '.delete' ,function(){
+			var cmd = $(this).data('cmd');
+		        $.ajax({
+				url: '/boards/'+<%= board.board_id %>,
+				data: { messageId: cmd},
+				type: 'delete',
+				success: function() {
+					location.reload(false);
+					//alert('success!!');
+				},
+				error: function() {
+					alert('error!!');
+				}
+			})
+		});
+	</script>
 </head>
 <body>
 	<div class="rightText">
@@ -33,9 +51,7 @@
 				<% messageList.forEach(function(messageItem) { %>
 					<li class="main-list__item list-group-item">
 						<div class="container">
-							<form action="/boards/ <%= board.board_id %>" method="delete" class="board-form">
-								<button type="submit"  class="right delete">X</button>
-							</form>
+							<button class="delete right" data-cmd="<%= messageItem.message_id %>">X</button>
 							<p class="message__date rightText"><%= messageItem.created_at %><br/><%= messageItem.user_name %></p>
 							<div class="text">
 								<p class="message__title message"><%= messageItem.message %></p>
