@@ -5,7 +5,7 @@ var connection = require('../../../mySqlConnection');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	
+
 	var userId = req.session.user_id? req.session.user_id:0;
 	if(!userId){
 		res.redirect('/login');
@@ -36,9 +36,18 @@ router.post('/', function(req, res, next) {
 	connection.query(query, function(err, rows){
 		res.redirect('/');
 	});
-	
-	console.log(title);
-	console.log(createdAt);
+});
+
+router.delete('/', function(req, res, next){
+	var boardId = req.body.boardId;
+	var messagesDelete = 'DELETE FROM messages WHERE board_id=' + boardId;
+	var boardsDelete = 'DELETE FROM boards WHERE board_id=' + boardId;
+
+	connection.query(messagesDelete, function(err, messages){
+		connection.query(boardsDelete, function(err, boards){
+			res.end("DONE");
+		});
+	});
 });
 
 

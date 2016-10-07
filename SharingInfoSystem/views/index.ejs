@@ -12,6 +12,24 @@
     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+                $(document).on('click', '.delete' ,function(){
+			var cmd = $(this).data('cmd');
+			$.ajax({
+				url: '/',
+				data: { boardId: cmd},
+				type: 'delete',
+				success: function() {
+					location.reload(false);	
+   				},
+				error: function() {
+					alert('error!!');
+				}
+			});
+		});
+        </script>
+
   </head>
   
   <body>
@@ -22,13 +40,14 @@
 		<% } %>
 	</div>
     	<div class="wrapper">
-		<form action="/" method="post" class="board-form"><h3>Create a Board</h3><input type="text" name="title" class="input form-control" placeholder="Enter Title" required><button type="submit" class="right submit btn btn-primary">Create</button>
+		<form action="/" method="post" enctype="multipart/form-data" class="board-form"><h3>Create a Board</h3><input type="text" name="title" class="input form-control" placeholder="Enter Title" required><button type="submit" class="right submit btn btn-primary">Create</button>
+		<input type="file" name="image_file" class="right file btn btn-info">
 		</form><br/><br/>
 		<h4>List</h4>
 		<ul class="main-list list-group">
 			<% boardList.forEach(function(boardItem) { %>
 				<li class="main-list__item list-group-item">
-					<a href="/boards/<%= boardItem.board_id %>"><label class="board__title"><%= boardItem.title %></label></a><button class="right delete">X</button><br/><br/><p class="board__date rightText"><%= boardItem.user_name %><br/><%= boardItem.created_at %></p>
+					<a href="/boards/<%= boardItem.board_id %>"><label class="board__title"><%= boardItem.title %></label></a><button class="right delete" data-cmd="<%= boardItem.board_id %>">X</button><br/><br/><p class="board__date rightText"><%= boardItem.user_name %><br/><%= boardItem.created_at %></p>
 				</li>
 			<% }); %>
 		</ul>
