@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var moment = require('moment');
+var multer = require('multer');
 var connection = require('../../../mySqlConnection');
+var upload = multer({dest: './public/images/uplosads'});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -14,7 +16,6 @@ router.get('/', function(req, res, next) {
 	var query = 'SELECT B.board_id, B.user_id, B.title, ifnull(U.user_name, \'None\') AS user_name, DATE_FORMAT(B.created_at, \'%Y/%m/%d , %k:%m:%s\') AS created_at FROM boards B LEFT OUTER JOIN users U ON B.user_id = U.user_id ORDER BY B.created_at DESC';
 	
 	connection.query(query, function(err, rows){
-		console.log(rows);
 		res.render('index', {
 			title: 'Board',
 			boardList: rows
@@ -23,7 +24,10 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/', function(req, res, next) {
+router.post('/', upload.single('image_file'), function(req, res) {
+	console.log("####PASS####");
+	console.log(req.file);
+	
 	var title = req.body.title;
 	var userId = req.session.user_id? req.session.user_id:0;
 
@@ -32,7 +36,6 @@ router.post('/', function(req, res, next) {
 	
 	// mysql query
 	var query = 'INSERT INTO boards (user_id, title, created_at) VALUES ("' + userId + '", ' + '"' + title + '", ' + '"' + createdAt + '")';
-	console.log(query);
 	connection.query(query, function(err, rows){
 		res.redirect('/');
 	});
