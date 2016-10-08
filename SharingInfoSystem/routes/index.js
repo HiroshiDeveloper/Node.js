@@ -5,6 +5,11 @@ var multer = require('multer');
 var connection = require('../../../mySqlConnection');
 var upload = multer({dest: './public/images/uplosads'});
 
+var data = require('../../../myCloudinary');
+var cloudinary = require('cloudinary');
+
+cloudinary.config(data);
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
@@ -13,7 +18,7 @@ router.get('/', function(req, res, next) {
 		res.redirect('/login');
 	}
 	
-	var query = 'SELECT B.board_id, B.user_id, B.title, ifnull(U.user_name, \'None\') AS user_name, DATE_FORMAT(B.created_at, \'%Y/%m/%d , %k:%m:%s\') AS created_at FROM boards B LEFT OUTER JOIN users U ON B.user_id = U.user_id ORDER BY B.created_at DESC';
+	var query = 'SELECT B.image_path, B.board_id, B.user_id, B.title, ifnull(U.user_name, \'None\') AS user_name, DATE_FORMAT(B.created_at, \'%Y/%m/%d , %k:%m:%s\') AS created_at FROM boards B LEFT OUTER JOIN users U ON B.user_id = U.user_id ORDER BY B.created_at DESC';
 	
 	connection.query(query, function(err, rows){
 		res.render('index', {
@@ -28,16 +33,21 @@ router.post('/', upload.single('image_file'), function(req, res) {
 	console.log("####PASS####");
 	console.log(req.file);
 	
+	var path = req.file.path;
 	var title = req.body.title;
 	var userId = req.session.user_id? req.session.user_id:0;
 
 	// date
 	var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
 	
-	// mysql query
-	var query = 'INSERT INTO boards (user_id, title, created_at) VALUES ("' + userId + '", ' + '"' + title + '", ' + '"' + createdAt + '")';
-	connection.query(query, function(err, rows){
-		res.redirect('/');
+	cloudinary.uploader.upload(path, function(result){
+		var imagePath = result.url;
+		
+		// mysql query
+		var query = 'INSERT INTO boards (image_path, user_id, title, created_at) VALUES ("' + imagePath + '", ' + '"' + userId + '", ' + '"' + title + '", ' + '"' + createdAt + '")';
+		connection.query(query, function(err, rows){
+			res.redirect('/');
+		});
 	});
 });
 

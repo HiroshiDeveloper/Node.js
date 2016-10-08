@@ -15,18 +15,22 @@
 
 	<script type="text/javascript">
                 $(document).on('click', '.delete' ,function(){
-			var cmd = $(this).data('cmd');
-			$.ajax({
-				url: '/',
-				data: { boardId: cmd},
-				type: 'delete',
-				success: function() {
-					location.reload(false);	
-   				},
-				error: function() {
-					alert('error!!');
-				}
-			});
+			if(window.confirm('Are you sure to delete "'+ $(this).data('name') + '" board?')){
+				var cmd = $(this).data('cmd');
+				$.ajax({
+					url: '/',
+					data: { boardId: cmd},
+					type: 'delete',
+					success: function() {
+						location.reload(false);	
+   					},
+					error: function() {
+						alert('error!!');
+					}
+				});
+			}else{
+				window.alert('Canceled');
+			}
 		});
         </script>
 
@@ -55,7 +59,15 @@
 		<ul class="main-list list-group">
 			<% boardList.forEach(function(boardItem) { %>
 				<li class="main-list__item list-group-item">
-					<a href="/boards/<%= boardItem.board_id %>"><label class="board__title"><%= boardItem.title %></label></a><button class="right delete" data-cmd="<%= boardItem.board_id %>">X</button><br/><br/><p class="board__date rightText"><%= boardItem.user_name %><br/><%= boardItem.created_at %></p>
+					<% if (boardItem.image_path) { %>
+						<img src="<%= boardItem.image_path %>" class="img-circle icon" alt="Cinque Terre" width="50" height="50">
+					<% } %>
+					
+					<a href="/boards/<%= boardItem.board_id %>">
+						<label class="board__title"><%= boardItem.title %></label>
+					</a>
+					<button class="right delete" data-cmd="<%= boardItem.board_id %>" data-name="<%= boardItem.title %>">X</button>
+					<p class="board__date rightText"><%= boardItem.user_name %><br/><%= boardItem.created_at %></p>
 				</li>
 			<% }); %>
 		</ul>

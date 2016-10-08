@@ -36,6 +36,10 @@ a {
 	color: red;
 }
 
+.icon{
+	margin-right : 10px;
+}
+
 .delete{
 	margin-left:10px;
 	width:30px;
@@ -48,16 +52,19 @@ a {
 	background:#cc0000
 }
 
+li:nth-child(odd) {
+	background-color: #ebebe0;
+}
+
 li:hover {
 	background-color: #E3F9FA;
-};
-
+}
 
 .container {
 	display: flex;
 	flex-wrap: wrap;
 	flex-flow: column nowrap;
-	max-width: 300px;
+	max-width: 600px;
 }
 
 .text {
@@ -66,7 +73,7 @@ li:hover {
 
 p {
 	word-break: break-all;
-	width: 300px;   
+	width: 600px;   
 	width:100%; 
 }
 

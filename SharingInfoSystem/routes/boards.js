@@ -4,7 +4,11 @@ var moment = require('moment');
 var connection = require('../../../mySqlConnection');
 
 router.get('/:board_id', function(req, res, next){
-	console.log(req.params);
+	var userId = req.session.user_id? req.session.user_id:0;
+	if(!userId){
+		res.redirect('/login');
+	}
+
 	var boardId = req.params.board_id;
 	var getBoardQuery = 'SELECT * FROM boards WHERE board_id = ' + boardId;
 	

@@ -15,18 +15,22 @@
 
 	<script type="text/javascript">
         	$(document).on('click', '.delete' ,function(){
-			var cmd = $(this).data('cmd');
-		        $.ajax({
-				url: '/boards/'+<%= board.board_id %>,
-				data: { messageId: cmd},
-				type: 'delete',
-				success: function() {
-					location.reload(false);
-				},
-				error: function() {
-					alert('error!!');
-				}
-			})
+			if(window.confirm('Are you sure to delete this message?\n\n"' + $(this).data('message') + '"' )){
+				var cmd = $(this).data('cmd');
+		        	$.ajax({
+					url: '/boards/'+<%= board.board_id %>,
+					data: { messageId: cmd},
+					type: 'delete',
+					success: function() {
+						location.reload(false);
+					},
+					error: function() {
+						alert('error!!');
+					}
+				})
+			}else{
+			
+			}
 		});
 	</script>
 </head>
@@ -49,9 +53,10 @@
 			<ul class="main-list list-group">
 				<% messageList.forEach(function(messageItem) { %>
 					<li class="main-list__item list-group-item">
+						<button class="right delete" data-cmd="<%= messageItem.message_id %>" data-message="<%= messageItem.message %>">X</button>
+						
+						<p class="message__date rightText"><%= messageItem.created_at %><br/><%= messageItem.user_name %></p>
 						<div class="container">
-							<button class="delete right" data-cmd="<%= messageItem.message_id %>">X</button>
-							<p class="message__date rightText"><%= messageItem.created_at %><br/><%= messageItem.user_name %></p>
 							<div class="text">
 								<p class="message__title message"><%= messageItem.message %></p>
 							</div>
