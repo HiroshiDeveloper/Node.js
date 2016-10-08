@@ -30,10 +30,13 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', upload.single('image_file'), function(req, res) {
-	console.log("####PASS####");
-	console.log(req.file);
-	
-	var path = req.file.path;
+	var path;
+	if(typeof req.file === 'undefined'){
+		path = "public/images/uplosads/74d459245f677c4b36b0cded6a6d5b97";
+	}else{
+		path = req.file.path;
+	}
+
 	var title = req.body.title;
 	var userId = req.session.user_id? req.session.user_id:0;
 
