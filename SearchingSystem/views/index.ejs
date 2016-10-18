@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<title><%= title %></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+  	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAHx4-o0l0LTGPbxNJtk_WPoPMLjSE02JY"></script>
+	<script src="/javascripts/map.js"></script>
+
   </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+  <body onload="start_func()">
+	 <h1><%= title %></h1>
+	 <p>Welcome to <%= title %></p>
+	 
+	 <!-- Google Map -->
+	 <div id="map_canvas" style="width:90%; height:90%">
+		Getting the location....
+	 </div>
+	 <div id="area_name"></div>
   </body>
 </html>
