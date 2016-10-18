@@ -2,19 +2,48 @@
 <html>
   <head>
 	<title><%= title %></title>
+	
+	<!-- CSS -->
 	<link rel='stylesheet' href='/stylesheets/style.css' />
-  	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAHx4-o0l0LTGPbxNJtk_WPoPMLjSE02JY"></script>
+  	
+	<!-- bootstrap -->
+  	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<!-- Google Map javascript -->
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCADpY9eVm7QALEc_dX4Qm_bvjqeCNhxEE"></script>
 	<script src="/javascripts/map.js"></script>
 
   </head>
   <body onload="start_func()">
-	 <h1><%= title %></h1>
-	 <p>Welcome to <%= title %></p>
+	  
+	  <h2><%= title %></h2><br/>
+	
+	  <button class="btn btn-warning right"><span class="glyphicon glyphicon-star">Favorite</span></button>
+	  <div class="dropdown">
+	   
+	 	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">Dropdown<span class="caret"></span></button>
+					  
+	
+	 	  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+	 		  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+	 		  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+	 		  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+			  <li role="presentation" class="divider"></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+		  </ul>
+	  </div><br/>
+
 	 
-	 <!-- Google Map -->
-	 <div id="map_canvas" style="width:90%; height:90%">
-		Getting the location....
-	 </div>
-	 <div id="area_name"></div>
+	  <!-- Google Map -->
+	  <div class="container">
+	  	  <div id="area_name" class="textRight"></div>
+	  	  <div id="map_canvas" style="width:100%; height:500px">
+	  		  Getting the location....
+	  	  </div>
+	  </div>
   </body>
 </html>

@@ -8,7 +8,9 @@ var COL = 'users';
 
 
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Searching System' });
+	res.render('index', {
+	       	title: 'Searching System',
+	});
 	/*
 	collection(COL).insertOne(req.body).then(function(r) {
 	   	console.log("PASS");

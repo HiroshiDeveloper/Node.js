@@ -30,24 +30,18 @@ function errorCallback(error) {
 }
      
 function initialize(x,y) {
-     document.getElementById("area_name").innerHTML = 'google map情報を取得中';
+     document.getElementById("area_name").innerHTML = 'Getting information of google map';
       
-     // Geolocationで取得した座標を代入
+     // add infromation from Geolocation
+     // MapTypeId: HYBRID, ROADMAP, SATELLITE or TERRAIN
      var myLatlng = new google.maps.LatLng(x,y);
      var mapOptions = {
 	     zoom: 17,
 	     center: myLatlng,
-	     mapTypeId: google.maps.MapTypeId.HYBRID
+	     mapTypeId: google.maps.MapTypeId.ROADMAP
      }
-      
-     // MapTypeId に、地図タイプを指定
-     // HYBRID 衛星画像と主要な通りが表示されます
-     // ROADMAP 通常の地図画像が表示されます
-     // SATELLITE 衛生画像が表示されます。
-     // TERRAIN 地形や植生などのマッピングをします。
        
      var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-        
      var marker = new google.maps.Marker({
      	     position: myLatlng,
 	     map: map,
@@ -58,13 +52,13 @@ function initialize(x,y) {
          
 
 function get_area_name(latLng_now){
-	// 座標から住所名を取得
+	// Get address
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode({latLng: latLng_now}, function(results, status){
        		if(status == google.maps.GeocoderStatus.OK){
-		      	document.getElementById("area_name").innerHTML = "You're around " + results[0].formatted_address;
+		      	document.getElementById("area_name").innerHTML = results[0].formatted_address + "<br/>";
 	       	} else {
-		      	// エラーの場合
+		      	// Error
        		}
       	});
 }
