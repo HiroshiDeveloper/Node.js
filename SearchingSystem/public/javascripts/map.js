@@ -1,12 +1,13 @@
 var message;
+var map;
+var marker;
+var myLatlng;
  
 function start_func(){
-	console.log("PASS0");
 	get_location();
 }
   
 function get_location(){
-	console.log("PASS");
 	document.getElementById("area_name").innerHTML = 'Get a location';
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition
@@ -30,26 +31,44 @@ function errorCallback(error) {
 }
      
 function initialize(x,y) {
-     document.getElementById("area_name").innerHTML = 'Getting information of google map';
+     	document.getElementById("area_name").innerHTML = 'Getting information of google map';
       
-     // add infromation from Geolocation
-     // MapTypeId: HYBRID, ROADMAP, SATELLITE or TERRAIN
-     var myLatlng = new google.maps.LatLng(x,y);
-     var mapOptions = {
-	     zoom: 17,
-	     center: myLatlng,
-	     mapTypeId: google.maps.MapTypeId.ROADMAP
-     }
+     	// add infromation from Geolocation
+     	// MapTypeId: HYBRID, ROADMAP, SATELLITE or TERRAIN
+     	myLatlng = new google.maps.LatLng(x,y);
+     	var mapOptions = {
+   		zoom: 15,
+	     	center: myLatlng,
+	     	mapTypeId: google.maps.MapTypeId.ROADMAP
+    	 }
        
-     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-     var marker = new google.maps.Marker({
-     	     position: myLatlng,
-	     map: map,
-	     title:"Your position"
-     });
-     get_area_name(myLatlng);
+     	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+	createMarker(myLatlng, map, "Your position");
+	/*
+	var marker = new google.maps.Marker({
+   		position: myLatlng,
+	     	map: map,
+		title:"Your position"
+     	});
+	*/
+
+     	get_area_name(myLatlng);
+	
+	/*
+     	service = new google.maps.places.PlacesService(map);
+     	service.textSearch(mapOptions, callback);
+	*/
 }
-         
+     
+function callback(results, status){
+	
+	if(status == google.maps.places.PlacesServiceStatus.OK){
+		for(var i=0; i<results.length; i++){
+			alert(results[i].geometry.location);
+			createMarker(results[i].geometry.location, map ,results[i].name);
+		}
+	}
+}
 
 function get_area_name(latLng_now){
 	// Get address
@@ -62,3 +81,23 @@ function get_area_name(latLng_now){
        		}
       	});
 }
+
+function showMap(keyWord){
+	var request = {
+	       location: myLatlng,
+	       radius: '3000',
+	       query: keyWord
+	};
+	service	= new google.maps.places.PlacesService(map);
+     	service.textSearch(request, callback);
+}
+
+
+function createMarker(_position, _map, _title) {
+	var marker = new google.maps.Marker({
+		position: _position,
+		map: _map,
+		title : _title
+	});
+}
+
