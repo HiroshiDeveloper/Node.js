@@ -104,24 +104,22 @@ function createMarker(place) {
 		s+="<div class='ttl cf'>";
 		s+=(place.icon)?"<img width='32' height='32' src='"+place.icon+"' style='float:left;margin-right:5px;' />":"";
 		s+=(place.name)?"<b>"+place.name+"</b>":"?";
-		s+="</div>";
+		s+="</div><br/>";
 		s+="<div class='detail'>";
 		
 		/* address */
 		if(place.formatted_address){
-			s+="<p>"+place.formatted_address+"</p>";
+			s+="<p>"+place.formatted_address+"<br/>";
 		}
 
 		/* reviews */
 		if(place.rating){
-			    s+="<p>Reviews："+place.rating+"</p>";
+			    s+="Reviews："+place.rating+"</p>";
 		}
 
 		/* pictures */
-		console.log("=== CHECK ===");
-		console.log(place.photos[0].getUrl);
 		if(place.photos && place.photos.length>=1){
-			    s+="<img src='"+place.photos[0].getUrl({"maxWidth":100,"maxHeight":100})+"'/>";
+			    s+="<div style='text-align:center'><img src='"+place.photos[0].getUrl({"maxWidth":150,"maxHeight":150})+"'/></div>";
 		}
 
 
