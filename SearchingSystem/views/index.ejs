@@ -27,16 +27,15 @@
 	   
 	 	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">Dropdown<span class="caret"></span></button>
 					  
-	
+		  <!-- Dropdown List -->
 	 	  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-	 		  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('restaurant');return false;">Restaurant</a></li>
-	 		  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Hospital</a></li>
-	 		  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">station</a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#"></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.restaurant %>');return false;"><%= dropdown.restaurant %></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.hospital %>');return false;"><%= dropdown.hospital %></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.station %>');return false;"><%= dropdown.station %></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.cafe %>');return false;"><%= dropdown.cafe  %></a></li>
 		  </ul>
 	  </div><br/>
 
-	 
 	  <!-- Google Map -->
 	  <div class="container">
 	  	  <div id="area_name" class="textRight"></div>

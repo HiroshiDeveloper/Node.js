@@ -2,14 +2,18 @@ var express = require('express');
 var router = express.Router();
 
 var objectID = require('mongodb').ObjectID;
-// MongoDB用ファイルを指定
 var collection = require( '../../../mongoConnection' );
 var COL = 'users';
-
 
 router.get('/', function(req, res, next) {
 	res.render('index', {
 	       	title: 'Searching System',
+		dropdown: {
+			restaurant: 'restaurant',
+			hospital: 'hospital',
+			station: 'station',
+			cafe: 'cafe'
+		}
 	});
 	/*
 	collection(COL).insertOne(req.body).then(function(r) {

@@ -1,6 +1,7 @@
-var message, map, marker, myLatlng;
+var message, map, myLatlng;
 var infowindow = new google.maps.InfoWindow();
- 
+var MarkerArray = new google.maps.MVCArray();
+
 function start_func(){
 	get_location();
 }
@@ -42,9 +43,16 @@ function initialize(x,y) {
     	 }
        
      	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-	var marker = new google.maps.Marker({
+	
+	var image = {
+    		url : "../images/user.png",
+		scaledSize : new google.maps.Size(48, 48)
+	}
+
+	var user = new google.maps.Marker({
    		position: myLatlng,
 	     	map: map,
+		icon: image,
 		title:"Your position"
      	});
 
@@ -83,10 +91,16 @@ function showMap(keyWord){
 	       radius: '3000',
 	       query: keyWord
 	};
+
+	clearAllIcon();
+
 	service	= new google.maps.places.PlacesService(map);
      	service.textSearch(request, callback);
 }
 
+function clearAllIcon() {
+	MarkerArray.forEach(function (marker, idx) { marker.setMap(null); });
+}
 
 function createMarker(place) {
 	var marker = new google.maps.Marker({
@@ -95,6 +109,7 @@ function createMarker(place) {
 		title : place.name
 	});
 
+	MarkerArray.push(marker);
 
 	google.maps.event.addListener(marker, 'click', function() {
 		
@@ -119,14 +134,10 @@ function createMarker(place) {
 
 		/* pictures */
 		if(place.photos && place.photos.length>=1){
-			    s+="<div style='text-align:center'><img src='"+place.photos[0].getUrl({"maxWidth":150,"maxHeight":150})+"'/></div>";
+			    s+="<div style='text-align:center'><img src='"+place.photos[0].getUrl({"maxWidth":150,"maxHeight":150})+"'/></div><br/>";
 		}
 
-
-
-
-
-		
+		s+="<button class='btn btn-warning right'><span class='glyphicon glyphicon-star'>Add</span></button>"
 		infowindow.setContent("<div class='infowin'>"+s+"</div>");
 		infowindow.open(map, this);
 	});
