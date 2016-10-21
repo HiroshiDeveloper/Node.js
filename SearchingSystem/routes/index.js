@@ -3,24 +3,38 @@ var router = express.Router();
 
 var objectID = require('mongodb').ObjectID;
 var collection = require( '../../../mongoConnection' );
-var COL = 'users';
+var COL = 'favorite';
 
 router.get('/', function(req, res, next) {
 	res.render('index', {
 	       	title: 'Searching System',
 		dropdown: {
+			//Amusement
+			aquarium: 'aquarium',
+			bar: 'bar',
+			movie_theater: 'movie_theater',
+
+			//Food
 			restaurant: 'restaurant',
+			cafe: 'cafe',
+			bakery: 'bakery',
+			
+			//Facility
+			atm: 'atm',
+			post_office: 'post_office',
 			hospital: 'hospital',
+			police: 'police',
+
+			//Transportation
 			station: 'station',
-			cafe: 'cafe'
+			airport: 'airport',
+			subway_station: 'subway_station'
 		}
 	});
-	/*
-	collection(COL).insertOne(req.body).then(function(r) {
-	   	console.log("PASS");
-		res.send("name=name1");
-	});
-	*/
+});
+
+router.post('/', function(req, res, next){
+	collection(COL).insertOne(req.body);
 });
 
 module.exports = router;

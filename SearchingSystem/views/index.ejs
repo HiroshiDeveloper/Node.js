@@ -17,22 +17,53 @@
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCADpY9eVm7QALEc_dX4Qm_bvjqeCNhxEE&libraries=places&sensor=false"></script>
 	<script src="/javascripts/map.js"></script>
 
+	<!-- Alert -->
+	<script src="/javascripts/jquery.confirm.js"></script>
+	<script src="/stylesheets/jquery.confirm.css"></script>
+
   </head>
   <body onload="start_func()">
 	  
 	  <h2><%= title %></h2><br/>
 	
 	  <button class="btn btn-warning right"><span class="glyphicon glyphicon-star">Favorite</span></button>
+	  
 	  <div class="dropdown">
-	   
-	 	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">Dropdown<span class="caret"></span></button>
-					  
-		  <!-- Dropdown List -->
-	 	  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.restaurant %>');return false;"><%= dropdown.restaurant %></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.hospital %>');return false;"><%= dropdown.hospital %></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.station %>');return false;"><%= dropdown.station %></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.cafe %>');return false;"><%= dropdown.cafe  %></a></li>
+		  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span> Places<span class="caret"></span></button>
+		  <ul class="dropdown-menu multi-level">
+		    	  <li class="dropdown-submenu">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Amusement</a>
+				  <ul class="dropdown-menu">
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.aquarium %>');return false;"><%= dropdown.aquarium %></a></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.bar %>');return false;"><%= dropdown.bar %></a></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.movie_theater %>');return false;"><%= dropdown.movie_theater %></a></li>
+				  </ul>
+			  </li>
+		    	  <li class="dropdown-submenu">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Food</a>
+				  <ul class="dropdown-menu">
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.restaurant %>');return false;"><%= dropdown.restaurant %></a></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.cafe %>');return false;"><%= dropdown.cafe  %></a></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.bakery %>');return false;"><%= dropdown.bakery %></a></li>
+				  </ul>
+			  </li>
+		    	  <li class="dropdown-submenu">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Facility</a>
+				  <ul class="dropdown-menu">
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.hospital %>');return false;"><%= dropdown.hospital %></a></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.post_office %>');return false;"><%= dropdown.post_office %></a></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.atm %>');return false;"><%= dropdown.atm %></a></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.police %>');return false;"><%= dropdown.police %></a></li>
+				  </ul>
+			  </li>
+		    	  <li class="dropdown-submenu">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Transportation</a>
+				  <ul class="dropdown-menu">
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.station %>');return false;"><%= dropdown.station %></a></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.airport %>');return false;"><%= dropdown.airport %></a></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="showMap('<%= dropdown.subway_station %>');return false;"><%= dropdown.subway_station %></a></li>
+				  </ul>
+			  </li>
 		  </ul>
 	  </div><br/>
 

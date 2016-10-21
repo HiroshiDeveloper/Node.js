@@ -1,4 +1,4 @@
-var message, map, myLatlng;
+var message, map, myLatlng, jsonData;
 var infowindow = new google.maps.InfoWindow();
 var MarkerArray = new google.maps.MVCArray();
 
@@ -46,7 +46,7 @@ function initialize(x,y) {
 	
 	var image = {
     		url : "../images/user.png",
-		scaledSize : new google.maps.Size(48, 48)
+		scaledSize : new google.maps.Size(20, 35)
 	}
 
 	var user = new google.maps.Marker({
@@ -102,6 +102,25 @@ function clearAllIcon() {
 	MarkerArray.forEach(function (marker, idx) { marker.setMap(null); });
 }
 
+function sendData(){
+
+	if(window.confirm('Do you wanna add this information?')){
+
+		$.ajax({
+			type: 'POST',
+			data: {
+				name : jsonData.name,
+				address: jsonData.formatted_address,
+				icon : jsonData.icon,
+				rating : jsonData.rating,
+				photo : jsonData.photos[0].getUrl({"maxWidth":150,"maxHeight":150})
+			},
+			url: '/',
+			dataType: 'JSON'
+		})
+	}
+}
+
 function createMarker(place) {
 	var marker = new google.maps.Marker({
 		position: place.geometry.location,
@@ -114,7 +133,7 @@ function createMarker(place) {
 	google.maps.event.addListener(marker, 'click', function() {
 		
 		var s ="";
-
+		jsonData = place;
 		/* icon + place name */
 		s+="<div class='ttl cf'>";
 		s+=(place.icon)?"<img width='32' height='32' src='"+place.icon+"' style='float:left;margin-right:5px;' />":"";
@@ -137,7 +156,7 @@ function createMarker(place) {
 			    s+="<div style='text-align:center'><img src='"+place.photos[0].getUrl({"maxWidth":150,"maxHeight":150})+"'/></div><br/>";
 		}
 
-		s+="<button class='btn btn-warning right'><span class='glyphicon glyphicon-star'>Add</span></button>"
+		s+="<button onClick='sendData();' class='btn btn-warning right'><span class='glyphicon glyphicon-star'>Add</span></button>"
 		infowindow.setContent("<div class='infowin'>"+s+"</div>");
 		infowindow.open(map, this);
 	});
