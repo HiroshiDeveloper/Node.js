@@ -103,7 +103,6 @@ function clearAllIcon() {
 }
 
 function sendData(){
-
 	if(window.confirm('Do you wanna add this information?')){
 
 		$.ajax({
