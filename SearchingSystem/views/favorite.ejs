@@ -14,9 +14,35 @@
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
+	  <% if (jsondata) { %>
+	  	<h2>Favorite Places List</h2><br/>
+	  	<ul class="main-list list-group">
+
+	  		<% jsondata.forEach(function(onedata) { %>
+				<li class="list-group-item">
+		    			<button class="right delete" data-cmd="<%= onedata._id %>" data-message="<%= onedata.address %>">X</button>
+					<div class="row">
+						<p class="rightText"><%= onedata.name %><br/><%= onedata.address %></p>
+					</div>
+				</li>
+			<% }); %>
+		</ul>
+	  <% }else{ %>
+	  	<h2>Add favorite places</h2>
+		<div class="textCenter">
+			<a href="/">Go back</a>
+		</div>
+	  <% } %>
 
 
 
   </body>
+  <script type="text/javascript">
+	var data = <%- JSON.stringify(jsondata) %>
+	for (i=0; i<data.length; i++){
+		console.log(data[i]);
+	};
+  </script>
 </html>
+
 

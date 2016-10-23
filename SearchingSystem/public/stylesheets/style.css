@@ -1,10 +1,14 @@
 body {
-       	padding: 50px;
+       	padding: 20px;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   	color: #00B7FF;
+}
+
+h2 {
+	color: #F2CB1B;
 }
 
 .right {
@@ -19,7 +23,32 @@ a {
   	text-align: right;
 }
 
+.textCenter {
+	text-align: center;
+}
 
+.delete{
+	margin-left:10px;
+	width:30px;
+	height:30px;
+	border-radius:15px;
+	border-color:#FFAF40;
+	font-size:15px;
+	color:#fff;
+	text-align:center;
+	background:#FFAF40;
+}
+
+li:nth-child(odd) {
+	background-color: #F8FFAD;
+}
+
+li:hover {
+	background-color: #E3F9FA;
+}
+
+
+/* customize dropdown */
 .dropdown-submenu {
 	position: relative;
 }
