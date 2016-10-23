@@ -35,16 +35,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next){
-	collection(COL).insertOne(req.body);
-});
-
-router.post('/', function(req, res, next){
 	console.log("POSTPOST");
 	console.log(req.body.name);
 	console.log(req.body.address);
 	console.log(req.body.icon);
 	console.log(req.body.rating);
 	console.log(req.body.photo);
+	collection(COL).insertOne(req.body);
 });
 
 module.exports = router;

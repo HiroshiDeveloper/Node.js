@@ -20,14 +20,8 @@
   <body onload="start_func()">
 	  
 	  <h2><%= title %></h2><br/>
-	
 
-
-	  <!-- TO DO -->
-	  <!-- JUMP TO FAVORITE PAGE -->
-	  <button class="btn btn-warning right"><span class="glyphicon glyphicon-star">Favorite</span></button>
-	  
-	  <div class="dropdown">
+	  <div class="dropdown left">
 		  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span> Places<span class="caret"></span></button>
 		  <ul class="dropdown-menu multi-level">
 		    	  <li class="dropdown-submenu">
@@ -64,6 +58,13 @@
 				  </ul>
 			  </li>
 		  </ul>
+	  </div>
+
+	  <!-- Favorite Button -->
+	  <div class="textRight">
+	  	<button class="btn btn-warning " onclick="location.href='favorite'">
+	  		<span class="glyphicon glyphicon-star">Favorite</span>
+	  	</button>
 	  </div><br/>
 
 	  <!-- Google Map -->

@@ -11,6 +11,10 @@ a {
   	float: right;
 }
 
+.left {
+	float: left;
+}
+
 .textRight {
   	text-align: right;
 }
@@ -62,4 +66,8 @@ a {
 	-webkit-border-radius: 6px 0 6px 6px;
 	-moz-border-radius: 6px 0 6px 6px;
 	border-radius: 6px 0 6px 6px;
+}
+
+.hide_underLine{
+	text-decoration: none;
 }
