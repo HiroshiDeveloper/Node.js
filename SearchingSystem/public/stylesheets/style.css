@@ -1,6 +1,12 @@
 body {
        	padding: 20px;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background-image: url("/images/map.png"); 
+	background-position: center center;
+	background-repeat: no-repeat;
+    	background-attachment: fixed;
+	background-size: cover;
+	background-color: #464646;
 }
 
 a {
@@ -9,6 +15,7 @@ a {
 
 h2 {
 	color: #F2CB1B;
+	font-style: italic;
 }
 
 .right {
@@ -28,15 +35,18 @@ h2 {
 }
 
 .delete{
-	margin-left:10px;
-	width:30px;
-	height:30px;
-	border-radius:15px;
-	border-color:#FFAF40;
-	font-size:15px;
-	color:#fff;
-	text-align:center;
-	background:#FFAF40;
+	position: absolute;
+        z-index: 100;
+	top: 0px;
+	right: 0px;
+}
+
+.icon{
+	position: absolute;
+	z-index:100;
+	top: 0px;
+	left: 0px;
+	padding: 2px;
 }
 
 li:nth-child(odd) {
@@ -47,6 +57,46 @@ li:hover {
 	background-color: #E3F9FA;
 }
 
+.box {
+	float: left;
+	position:relative;
+	height:300px;
+	width:200px;
+    	background-color: #FCFBBB;
+	margin: 2em 10px;
+	padding: 2em;
+}
+		    
+.box::after {
+	content: "";
+	border-color: #E0E089 #fff #fff #E0E089;
+	border-style: solid;
+	border-width: 0 0 24px 24px;
+	bottom: 0;
+	position: absolute;
+	right: 0;
+
+}
+
+.boxContainer {
+	overflow: hidden;
+}
+
+/* clearfix */
+.boxContainer:before,
+.boxContainer:after {
+	content: "";
+	display: table;
+}
+			 
+.boxContainer:after {
+	clear: both;
+}
+			     
+/* For IE 6/7 (trigger hasLayout) */
+.boxContainer {
+	zoom: 1;
+}
 
 /* customize dropdown */
 .dropdown-submenu {

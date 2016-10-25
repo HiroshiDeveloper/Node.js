@@ -15,18 +15,26 @@
   </head>
   <body>
 	  <% if (jsondata) { %>
-	  	<h2>Favorite Places List</h2><br/>
-	  	<ul class="main-list list-group">
-
-	  		<% jsondata.forEach(function(onedata) { %>
-				<li class="list-group-item">
-		    			<button class="right delete" data-cmd="<%= onedata._id %>" data-message="<%= onedata.address %>">X</button>
-					<div class="row">
-						<p class="rightText"><%= onedata.name %><br/><%= onedata.address %></p>
+	  	<h2>Favorite Places List</h2>
+		
+		<div class="boxContainer">
+			<% jsondata.forEach(function(onedata) { %>
+					<div class="box">
+						<form action="/favorite" method="post">
+							<input type="hidden" name="dataId" value=<%= onedata._id %> >
+							<button type="submit" class="delete btn btn-danger" onclick='return confirm("Are you sure to delete this favorite place?");'>X</button>
+						</form>
+						<img src="<%= onedata.photo %>"><br/>
+						<img class="icon" src="<%= onedata.icon %>" width="30px" height="30px" >
+						<label style="display:inline;"><%= onedata.name %></label>
+						<h6><%= onedata.address %></h6>
+						<% if(onedata.rating) {%>
+							<h6>Rating: <%= onedata.rating %></h6>
+						<% } %>
 					</div>
-				</li>
 			<% }); %>
-		</ul>
+		</div>
+		</div>
 	  <% }else{ %>
 	  	<h2>Add favorite places</h2>
 		<div class="textCenter">
