@@ -7,9 +7,6 @@ var COL = 'favorite';
 
 router.get('/', function(req, res, next){
 	collection(COL).find().toArray(function(err, data){
-    		console.log(data);
-		console.log("----------");
-		
 		res.render('favorite', {
 			title: 'FAVORITE',
 			jsondata: data
@@ -18,8 +15,9 @@ router.get('/', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
-	console.log(req.body.dataId);
-	collection(COL).findOneAndDelete( { _id: new ObjectID( req.body.dataId ) });
+	collection(COL).findOneAndDelete( { _id: new ObjectID( req.body.dataId ) 
+});
+
 	res.redirect('/favorite');
 });
 

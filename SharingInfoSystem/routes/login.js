@@ -24,7 +24,7 @@ router.post('/', function(req, res, next){
 			res.redirect('/');
 		}else{
 			res.render('login', {
-				title : 'login',
+				title : 'Login',
 				noUser : 'Email and password do not match'
 			});
 		}
