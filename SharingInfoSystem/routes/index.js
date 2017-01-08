@@ -3,7 +3,7 @@ var router = express.Router();
 var moment = require('moment');
 var multer = require('multer');
 var connection = require('../../../mySqlConnection');
-var upload = multer({dest: './public/images/uplosads'});
+var upload = multer({dest: './public/images/uploads'});
 
 var data = require('../../../myCloudinary');
 var cloudinary = require('cloudinary');
@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 	
 	connection.query(query, function(err, rows){
 		res.render('index', {
-			title: 'Board',
+			title: 'Dash Board',
 			boardList: rows
 		});
 	});
@@ -31,8 +31,9 @@ router.get('/', function(req, res, next) {
 
 router.post('/', upload.single('image_file'), function(req, res) {
 	var path;
+	
 	if(typeof req.file === 'undefined'){
-		path = "public/images/uplosads/74d459245f677c4b36b0cded6a6d5b97";
+		path = "public/images/uploads/74d459245f677c4b36b0cded6a6d5b97";
 	}else{
 		path = req.file.path;
 	}

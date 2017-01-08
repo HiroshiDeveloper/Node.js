@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><%= title %></title>
-
-	<!-- css -->
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-			    
 	<!-- bootstrap -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- Google fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+
+	<!-- css -->
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <link rel='stylesheet' href='/stylesheets/signUp.css' />
 </head>
-<body>
-	<div class="wrapper panel panel-success">
-		<div class="panel panel-heading">
-			<h3 class="main-title centerText"><%= title %></h3>
+<body class="signUpBody">
+	<br/>
+	<div class="signUpMain">
+		<div class="wrapper panel panel-default">
+			<div class="panel panel-heading signUpPanel">
+				<h3 class="main-title centerText"><%= signUp %></h3>
+			</div>
+			<div class="panel panel-body">
+				<form action="/register" method="post" class="board-form">
+					<label>User Name</label><br/>
+					<input type="text" name="user_name" class="input form-control" placeholder="Enter User Name" required><br/>
+					<label>Email</label><br/>
+					<input type="email" name="email" class="input form-control" placeholder="Enter Email" required><br/>
+					<label>Password</label><br/>
+					<input type="password" name="password" class="input form-control" placeholder="Enter Password" required><br/>
+	        			<button type="submit" class="btn right signUpBtn">Sign Up</button>
+    				</form>
+			</div>
+			<% if (typeof emailExists !== 'undefined') { %>
+        			<p class="error centerExist"><%= emailExists %></p>
+	    		<% } %>
+			<div class="centerText">
+				<a href="/login"><span class="glyphicon glyphicon-home"></span> Back to Login Page</a>
+			</div><br/>
 		</div>
-		<div class="panel panel-body">
-			<form action="/register" method="post" class="board-form">
-				<label>User Name</label><br/>
-				<input type="text" name="user_name" class="input form-control" placeholder="Enter User Name" required><br/><br/>
-				<label>Email</label><br/>
-				<input type="email" name="email" class="input form-control" placeholder="Enter Email" required><br/><br/>
-				<label>Password</label><br/>
-				<input type="password" name="password" class="input form-control" placeholder="Enter Password" required><br/><br/>
-        			<button type="submit" class="submit btn btn-success right">Sign Up</button>
-    			</form>
-		</div>
-		<% if (typeof emailExists !== 'undefined') { %>
-        		<p class="error centerExist"><%= emailExists %></p>
-    		<% } %>
-		<div class="centerText">
-			<a href="/login">Back to Login Page</a>
-		</div><br/>
-	</body>
+	</div>
+</body>
 </html>
 

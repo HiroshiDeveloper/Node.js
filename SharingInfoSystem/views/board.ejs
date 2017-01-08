@@ -2,9 +2,6 @@
 <html lang="ja">
 <head>
 	<title><%= title %></title>
-
-	<!-- css -->
-	<link rel='stylesheet' href='/stylesheets/style.css' />
 		    
         <!-- bootstrap -->
         <meta charset="utf-8">
@@ -33,9 +30,13 @@
 			}
 		});
 	</script>
+
+	<!-- css -->
+	<link rel='stylesheet' href='/stylesheets/style.css'/>
+	<link rel='stylesheet' href='/stylesheets/board.css'/>
 </head>
-<body>
-	<div class="rightText">
+<body class="boardBody">
+	<div class="rightText margin10">
 		<% if (typeof user !== 'undefined') { %>
 			<span class="login-user">Log in as <%= user.user_name %></span><br/>
 			<a href="/logout">Log out</a>

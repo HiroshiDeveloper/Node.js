@@ -5,7 +5,7 @@ var connection = require('../../../mySqlConnection');
 
 router.get('/', function(req, res, next){
 	res.render('register', {
-		title : 'sign up'
+		signUp : 'Sign Up'
 	});
 });
 
@@ -21,7 +21,7 @@ router.post('/', function(req, res, next) {
 		var emailExists = email.length === 1;
 		if (emailExists) {
 			res.render('register', {
-				title: 'Sign Up',
+				signUp: 'Sign Up',
 				emailExists: 'This mail is registered already'
 			});
 		}

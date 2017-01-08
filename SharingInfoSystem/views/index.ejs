@@ -3,9 +3,6 @@
   <head>
   	<title><%= title %></title>
     
-    	<!-- css -->
-    	<link rel='stylesheet' href='/stylesheets/style.css' />
-    
     	<!-- bootstrap -->
     	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +10,10 @@
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    	<!-- css -->
+    	<link rel='stylesheet' href='/stylesheets/style.css'/>
+    	<link rel='stylesheet' href='/stylesheets/index.css'/>
+	
 	<script type="text/javascript">
                 $(document).on('click', '.delete' ,function(){
 			if(window.confirm('Are you sure to delete "'+ $(this).data('name') + '" board?')){
@@ -32,30 +33,50 @@
 				window.alert('Canceled');
 			}
 		});
+
+		$(document).on('click', '#fileBtn', function(){
+			var boardText = document.getElementById("boardText").value;
+			console.log(boardText);
+			if(!boardText){
+				alert("Please type the board title");
+				return false;
+			}
+			/*
+			else{
+				$("#boardBtn").click();		
+			}
+			*/
+		})
+		
+		$(document).ready(function(){
+			$("#fileBtn").on('change',function(){
+				$("#boardBtn").click();		
+			});
+		});
+
         </script>
 
   </head>
   
-  <body>
-	<div class="rightText">
+  <body class="dashBoardBody">
+	<div class="rightText margin10">
 		<% if (typeof user !== 'undefined') { %>
 			<span class="login-user">Log in as <%= user.user_name %></span><br/>
 			<a href="/logout">Log out</a>
 		<% } %>
 	</div>
-    	<div class="wrapper">
+    	<div class="wrapperBoard">
 		<form action="/" method="post" enctype="multipart/form-data" class="board-form">
 			<h3>Create a Board</h3>
-			<input type="text" name="title" class="input form-control" placeholder="Enter Title" required>
+			<input id="boardText" type="text" name="title" class="input form-control" placeholder="Enter Title" required>
 			
-			<button type="submit" class="right submit btn btn-primary">Create</button>
+			<button id="boardBtn" type="submit" class="btn" style="display:none">Create</button>
 			<label class="addPic right btn btn-info">
-				+Add pic
-				<input type="file" name="image_file" class="right file" style="display:none">
+				Create
+				<input id="fileBtn" type="file" name="image_file" class="right file" style="display:none">
 			</label>
-		</form><br/><br/>
+		</form><br/><br/><br/>
 
-		<h4>List</h4>
 		<ul class="main-list list-group">
 			<% boardList.forEach(function(boardItem) { %>
 				<li class="main-list__item list-group-item">

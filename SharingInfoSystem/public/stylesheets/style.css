@@ -3,6 +3,10 @@ a {
   	color : #00B7FF;
 }
 
+.margin10{
+	margin: 10px;
+}
+
 .wrapper{
 	width: 40%;
 	margin: 0 auto;
@@ -16,10 +20,6 @@ a {
 	text-align : right;
 }
 
-.submit{
-	margin : 5px;
-}
-
 .addPic{
 	margin : 5px;
 }
@@ -31,45 +31,6 @@ a {
 .left{
 	float : left;
 }
-
-/* login */
-.loginBody{
-	background: url(../images/background.jpg) no-repeat center center fixed; 
-	-webkit-background-size: cover;
-     	-moz-background-size: cover;
-   	-o-background-size: cover;
- 	background-size: cover;
-}
-
-.loginHeader{
-	padding: 10px;
-	background: rgba(54, 25, 25, 0.4);
-}
-
-.loginMain{
-	padding: 10px;
-}
-
-.loginText{
-	font-family: 'Russo One', sans-serif;
-	color: #FFF;
-}
-
-.loginMain .panel-heading{
-	background-color: #1C8ADB;
-	border: none;
-}
-
-.login h3{
-	color: #FFF;
-}
-
-.titleFont{
-	font-size: 30px;
-	font-family: 'Russo One', sans-serif;
-	color: #FFF;
-}
-
 
 .error{
 	color: red;
@@ -117,3 +78,15 @@ p {
 }
 
 
+@media only screen and (max-width: 768px){
+	.wrapper{
+		width: 50%;
+	}
+
+}
+
+@media only screen and (max-width: 480px){
+	.wrapper{
+		width: 90%;
+	}
+}

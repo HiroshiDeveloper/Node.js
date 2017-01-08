@@ -7,7 +7,8 @@ router.get('/', function(req, res, next){
 		res.redirect('/');
 	}else{
 		res.render('login', {
-			title : 'Login'
+			title : 'Sharing Info',
+			login : 'Login'
 		});
 	}
 });
@@ -24,7 +25,8 @@ router.post('/', function(req, res, next){
 			res.redirect('/');
 		}else{
 			res.render('login', {
-				title : 'Login',
+				title : 'Sharing Info',
+				login : 'Login',
 				noUser : 'Email and password do not match'
 			});
 		}
