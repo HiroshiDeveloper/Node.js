@@ -1,0 +1,49 @@
+.loginBody{
+ 	background: url(../images/background.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.loginHeader{
+	padding: 10px;
+	background: rgba(54, 25, 25, 0.4);
+}
+
+.loginMain{
+	padding: 10px;
+}
+
+.loginText{
+	font-family: 'Russo One', sans-serif;
+	color: #FFF;
+}
+
+.loginMain .panel-heading{
+	background-color: #1C8ADB;
+	border-color: #1C8ADB;
+}
+
+.login h3{
+	color: #FFF;
+}
+
+.titleFont{
+	font-size: 30px;
+	font-family: 'Russo One', sans-serif;
+	color: #FFF;
+}
+
+.loginBtn{
+	margin: 5px;
+	background-color: #1C8ADB;
+	color: #FFF;
+}
+
+.signUpBtn{
+      	margin: 5px;
+	background-color: #37efc1;
+	color: #FFF;
+}
+
