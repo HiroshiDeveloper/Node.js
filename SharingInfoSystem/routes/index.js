@@ -34,6 +34,7 @@ router.get('/', function(req, res, next) {
 
 //socket.ioに接続された時に動く処理
 io.on('connection', function(socket) {
+	console.log("##################");
 	//接続時に振られた一意のIDをコンソールに表示
     	console.log('入室したID : %s', socket.id);
 
@@ -43,6 +44,7 @@ io.on('connection', function(socket) {
         //messageイベントで動く
     	//全員に取得したメッセージとIDを表示
    	socket.on('message', function(msj) {
+		console.log("##PASS##");
        		io.emit('message', msj, socket.id);
      	});
 
@@ -53,6 +55,12 @@ io.on('connection', function(socket) {
 		console.log('接続が切れたID : %s', socket.id);
 	});
 });
+
+/*
+http.listen(POST, function() {
+	  console.log('接続開始', POST);
+})
+*/
 
 router.post('/', upload.single('image_file'), function(req, res) {
 	var path = req.file.path;

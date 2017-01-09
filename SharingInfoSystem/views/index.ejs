@@ -14,8 +14,6 @@
     	<link rel='stylesheet' href='/stylesheets/style.css'/>
     	<link rel='stylesheet' href='/stylesheets/index.css'/>
 
-	<script src="/socket.io/socket.io.js"></script>
-	
 	<script type="text/javascript">
                 $(document).on('click', '.delete' ,function(){
 			if(window.confirm('Are you sure to delete "'+ $(this).data('name') + '" board?')){
@@ -50,33 +48,9 @@
 			});
 		});
 
-		var socket = io();
-		console.dir(socket);
-
-		$(function() {
-			$('#messageForm').submit(function() {
-							  　　　
-				var mensaje = $('#msj').val();
-				if (mensaje === ''){
-					return false;
-				}
-			
-				/* 全体にmessage処理（サーバーサイドにメッセージを渡す */
-		      		socket.emit('message', mensaje);
-				/* 入力フォームを空にしてフォーカスする */
-				$('#msj').val('').focus();
-				return false;
-  			});
-	 	});
-
-		/* サーバーサイドから来たメッセージを挿入 */
-    		socket.on('message', function(msj, id) {
-			alert("PASS");
-			$('#message').append($('<li>').text(id + " : " + msj));
-		});
 
         </script>
-
+	  
   </head>
   
   <body class="dashBoardBody">
@@ -127,16 +101,41 @@
 		</div>
     	</div>
 
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-    	<script src="/socket.io/socket.io.js"></script>
     	<script>
-    		var socket = io.connect();
+		/*
+    		var socketConnect = io.connect();
     		$('button').on('click', function() {
-    			socket.emit('request');
+			socketConnect.emit('request');
    		});
-    		socket.on('response', function() {
+    		socketConnect.on('response', function() {
     			alert('Get Response!!');
     		});
+		*/
+
+		var socket = io();
+		//console.dir(socket);
+
+		$(function() {
+			$('#messageForm').submit(function() {
+							  　　　
+				var mensaje = $('#msj').val();
+				if (mensaje === ''){
+					return false;
+				}
+		      		socket.emit('message', mensaje);
+				$('#msj').val('').focus();
+				return false;
+  			});
+	 	});
+
+    		socket.on('message', function(msj, id) {
+			alert("PASS");
+			$('#message').append($('<li>').text(id + " : " + msj));
+		});
+
+
     	</script>
 </body>
 </html>
