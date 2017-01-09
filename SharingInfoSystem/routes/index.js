@@ -4,6 +4,10 @@ var moment = require('moment');
 var multer = require('multer');
 var connection = require('../../../mySqlConnection');
 var upload = multer({dest: './public/images/uploads'});
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var POST = 3000;
 
 var data = require('../../../myCloudinary');
 var cloudinary = require('cloudinary');
@@ -28,16 +32,30 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+//socket.ioに接続された時に動く処理
+io.on('connection', function(socket) {
+	//接続時に振られた一意のIDをコンソールに表示
+    	console.log('入室したID : %s', socket.id);
+
+      	//接続時に全員にIDを表示（messageというイベントでクライアント側とやりとりする）
+        io.emit('message', socket.id + 'さんが入室しました！', 'System');
+
+        //messageイベントで動く
+    	//全員に取得したメッセージとIDを表示
+   	socket.on('message', function(msj) {
+       		io.emit('message', msj, socket.id);
+     	});
+
+         
+	//接続が切れた時に動く
+	//接続が切れたIDを全員に表示
+	socket.on('disconnect', function(e) {
+		console.log('接続が切れたID : %s', socket.id);
+	});
+});
 
 router.post('/', upload.single('image_file'), function(req, res) {
-	var path;
-	
-	if(typeof req.file === 'undefined'){
-		path = "public/images/uploads/74d459245f677c4b36b0cded6a6d5b97";
-	}else{
-		path = req.file.path;
-	}
-
+	var path = req.file.path;
 	var title = req.body.title;
 	var userId = req.session.user_id? req.session.user_id:0;
 

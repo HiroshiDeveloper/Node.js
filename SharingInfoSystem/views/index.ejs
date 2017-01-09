@@ -13,6 +13,8 @@
     	<!-- css -->
     	<link rel='stylesheet' href='/stylesheets/style.css'/>
     	<link rel='stylesheet' href='/stylesheets/index.css'/>
+
+	<script src="/socket.io/socket.io.js"></script>
 	
 	<script type="text/javascript">
                 $(document).on('click', '.delete' ,function(){
@@ -36,22 +38,41 @@
 
 		$(document).on('click', '#fileBtn', function(){
 			var boardText = document.getElementById("boardText").value;
-			console.log(boardText);
 			if(!boardText){
 				alert("Please type the board title");
 				return false;
 			}
-			/*
-			else{
-				$("#boardBtn").click();		
-			}
-			*/
 		})
 		
 		$(document).ready(function(){
 			$("#fileBtn").on('change',function(){
 				$("#boardBtn").click();		
 			});
+		});
+
+		var socket = io();
+		console.dir(socket);
+
+		$(function() {
+			$('#messageForm').submit(function() {
+							  　　　
+				var mensaje = $('#msj').val();
+				if (mensaje === ''){
+					return false;
+				}
+			
+				/* 全体にmessage処理（サーバーサイドにメッセージを渡す */
+		      		socket.emit('message', mensaje);
+				/* 入力フォームを空にしてフォーカスする */
+				$('#msj').val('').focus();
+				return false;
+  			});
+	 	});
+
+		/* サーバーサイドから来たメッセージを挿入 */
+    		socket.on('message', function(msj, id) {
+			alert("PASS");
+			$('#message').append($('<li>').text(id + " : " + msj));
 		});
 
         </script>
@@ -65,33 +86,45 @@
 			<a href="/logout">Log out</a>
 		<% } %>
 	</div>
-    	<div class="wrapperBoard">
-		<form action="/" method="post" enctype="multipart/form-data" class="board-form">
-			<h3>Create a Board</h3>
-			<input id="boardText" type="text" name="title" class="input form-control" placeholder="Enter Title" required>
+	<div class="container">
+    		<div class="row">
+			<div class="col-sm-6">	
+				<form action="/" method="post" enctype="multipart/form-data" class="board-form">
+					<h3>Create a Board</h3>
+					<input id="boardText" type="text" name="title" class="input form-control" placeholder="Enter Title" required>
 			
-			<button id="boardBtn" type="submit" class="btn" style="display:none">Create</button>
-			<label class="addPic right btn btn-info">
-				Create
-				<input id="fileBtn" type="file" name="image_file" class="right file" style="display:none">
-			</label>
-		</form><br/><br/><br/>
-
-		<ul class="main-list list-group">
-			<% boardList.forEach(function(boardItem) { %>
-				<li class="main-list__item list-group-item">
-					<% if (boardItem.image_path) { %>
-						<img src="<%= boardItem.image_path %>" class="img-circle icon" alt="Cinque Terre" width="50" height="50">
-					<% } %>
-					
-					<a href="/boards/<%= boardItem.board_id %>">
-						<label class="board__title"><%= boardItem.title %></label>
-					</a>
-					<button class="right delete" data-cmd="<%= boardItem.board_id %>" data-name="<%= boardItem.title %>">X</button>
-					<p class="board__date rightText"><%= boardItem.user_name %><br/><%= boardItem.created_at %></p>
-				</li>
-			<% }); %>
-		</ul>
+					<button id="boardBtn" type="submit" class="btn" style="display:none">Create</button>
+					<label class="addPic right btn btn-info">
+						Create
+						<input id="fileBtn" type="file" name="image_file" class="right file" style="display:none">
+					</label>
+				</form><br/><br/><br/>
+				<ul class="main-list list-group">
+					<% boardList.forEach(function(boardItem) { %>
+					<li class="main-list__item list-group-item">
+						<% if (boardItem.image_path) { %>
+							<img src="<%= boardItem.image_path %>" class="img-circle icon" alt="Cinque Terre" width="50" height="50">
+						<% } %>
+						<a href="/boards/<%= boardItem.board_id %>">
+							<label class="board__title"><%= boardItem.title %></label>
+						</a>
+						<button class="right delete" data-cmd="<%= boardItem.board_id %>" data-name="<%= boardItem.title %>">X</button>
+						<p class="board__date rightText"><%= boardItem.user_name %><br/><%= boardItem.created_at %></p>
+					</li>
+					<% }); %>
+				</ul>
+			</div>
+			<div class="col-sm-6">
+				<h3>Chat</h3>
+				<ul id="message"></ul>
+				<div id="controls">
+					<form id="messageForm" action="">
+			    			<input type="text" id="msj" placeholder="Escribe tu mensaje...">
+						<input type="submit" id="btn" value="Enviar">
+		    			</form>
+   				</div>
+			</div>
+		</div>
     	</div>
 
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
