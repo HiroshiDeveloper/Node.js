@@ -4,10 +4,11 @@ var moment = require('moment');
 var multer = require('multer');
 var connection = require('../../../mySqlConnection');
 var upload = multer({dest: './public/images/uploads'});
+
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var POST = 3000;
+var POST = 8080;
 
 var data = require('../../../myCloudinary');
 var cloudinary = require('cloudinary');
@@ -20,6 +21,7 @@ router.get('/', function(req, res, next) {
 	var userId = req.session.user_id? req.session.user_id:0;
 	if(!userId){
 		res.redirect('/login');
+		return;
 	}
 	
 	var query = 'SELECT B.image_path, B.board_id, B.user_id, B.title, ifnull(U.user_name, \'None\') AS user_name, DATE_FORMAT(B.created_at, \'%Y/%m/%d , %k:%m:%s\') AS created_at FROM boards B LEFT OUTER JOIN users U ON B.user_id = U.user_id ORDER BY B.created_at DESC';
@@ -30,12 +32,17 @@ router.get('/', function(req, res, next) {
 			boardList: rows
 		});
 	});
+
+	
+	http.listen(POST, function() {
+		console.log('接続開始', POST);
+	});
 });
+
 
 //socket.ioに接続された時に動く処理
 io.on('connection', function(socket) {
 	console.log("##################");
-	//接続時に振られた一意のIDをコンソールに表示
     	console.log('入室したID : %s', socket.id);
 
       	//接続時に全員にIDを表示（messageというイベントでクライアント側とやりとりする）
@@ -48,7 +55,6 @@ io.on('connection', function(socket) {
        		io.emit('message', msj, socket.id);
      	});
 
-         
 	//接続が切れた時に動く
 	//接続が切れたIDを全員に表示
 	socket.on('disconnect', function(e) {
@@ -56,11 +62,7 @@ io.on('connection', function(socket) {
 	});
 });
 
-/*
-http.listen(POST, function() {
-	  console.log('接続開始', POST);
-})
-*/
+
 
 router.post('/', upload.single('image_file'), function(req, res) {
 	var path = req.file.path;

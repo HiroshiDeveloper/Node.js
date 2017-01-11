@@ -14,6 +14,8 @@
     	<link rel='stylesheet' href='/stylesheets/style.css'/>
     	<link rel='stylesheet' href='/stylesheets/index.css'/>
 
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<script type="text/javascript">
                 $(document).on('click', '.delete' ,function(){
 			if(window.confirm('Are you sure to delete "'+ $(this).data('name') + '" board?')){
@@ -48,8 +50,29 @@
 			});
 		});
 
+		//var socket = io();
+		var socket;
+		socket = io.connect("http://localhost:8080");
+		$(function() {
+			$('#messageForm').submit(function() {
+							  　　　
+				var mensaje = $('#msj').val();
+				if (mensaje === ''){
+					return false;
+				}
+		      		socket.emit('message', mensaje);
+				$('#msj').val('').focus();
+				return false;
+  			});
+	 	});
 
-        </script>
+    		socket.on('message', function(msj, id) {
+			alert("PASS");
+			$('#message').append($('<li>').text(id + " : " + msj));
+		});
+
+
+    	</script>
 	  
   </head>
   
@@ -90,52 +113,16 @@
 			</div>
 			<div class="col-sm-6">
 				<h3>Chat</h3>
-				<ul id="message"></ul>
 				<div id="controls">
 					<form id="messageForm" action="">
-			    			<input type="text" id="msj" placeholder="Escribe tu mensaje...">
-						<input type="submit" id="btn" value="Enviar">
+			    			<input type="text" id="msj" placeholder="Message here...">
+						<input type="submit" id="btn" value="Enter">
 		    			</form>
    				</div>
+				<ul id="message"></ul>
 			</div>
 		</div>
     	</div>
 
-	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-    	<script>
-		/*
-    		var socketConnect = io.connect();
-    		$('button').on('click', function() {
-			socketConnect.emit('request');
-   		});
-    		socketConnect.on('response', function() {
-    			alert('Get Response!!');
-    		});
-		*/
-
-		var socket = io();
-		//console.dir(socket);
-
-		$(function() {
-			$('#messageForm').submit(function() {
-							  　　　
-				var mensaje = $('#msj').val();
-				if (mensaje === ''){
-					return false;
-				}
-		      		socket.emit('message', mensaje);
-				$('#msj').val('').focus();
-				return false;
-  			});
-	 	});
-
-    		socket.on('message', function(msj, id) {
-			alert("PASS");
-			$('#message').append($('<li>').text(id + " : " + msj));
-		});
-
-
-    	</script>
 </body>
 </html>
