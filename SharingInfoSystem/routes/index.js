@@ -5,17 +5,18 @@ var multer = require('multer');
 var connection = require('../../../mySqlConnection');
 var upload = multer({dest: './public/images/uploads'});
 
+// socket io
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var POST = 8080;
 
+// cloudinary
 var data = require('../../../myCloudinary');
 var cloudinary = require('cloudinary');
-
 cloudinary.config(data);
 
-/* GET home page. */
+// GET home page
 router.get('/', function(req, res, next) {
 
 	var userId = req.session.user_id? req.session.user_id:0;
@@ -33,36 +34,29 @@ router.get('/', function(req, res, next) {
 		});
 	});
 
-	
 	http.listen(POST, function() {
-		console.log('接続開始', POST);
+		console.log('Start to connect..', POST);
 	});
 });
 
-
-//socket.ioに接続された時に動く処理
+//connect socket.io
 io.on('connection', function(socket) {
-	console.log("##################");
-    	console.log('入室したID : %s', socket.id);
+	console.log('ID : %s', socket.id);
 
-      	//接続時に全員にIDを表示（messageというイベントでクライアント側とやりとりする）
-        io.emit('message', socket.id + 'さんが入室しました！', 'System');
+        //show the id in a dashboard to everyone
+	io.emit('message', socket.id + ' is here!', 'System');
 
-        //messageイベントで動く
-    	//全員に取得したメッセージとIDを表示
+        //message event
+    	//show the id and message
    	socket.on('message', function(msj) {
-		console.log("##PASS##");
        		io.emit('message', msj, socket.id);
      	});
 
-	//接続が切れた時に動く
-	//接続が切れたIDを全員に表示
+	//if the system is disconnected
 	socket.on('disconnect', function(e) {
-		console.log('接続が切れたID : %s', socket.id);
+		console.log('disconnected ID : %s', socket.id);
 	});
 });
-
-
 
 router.post('/', upload.single('image_file'), function(req, res) {
 	var path = req.file.path;

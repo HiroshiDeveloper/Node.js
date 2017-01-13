@@ -10,7 +10,10 @@
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    	<!-- css -->
+	<!-- Google fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+	
+	<!-- css -->
     	<link rel='stylesheet' href='/stylesheets/style.css'/>
     	<link rel='stylesheet' href='/stylesheets/index.css'/>
 
@@ -55,20 +58,19 @@
 		socket = io.connect("http://localhost:8080");
 		$(function() {
 			$('#messageForm').submit(function() {
-							  　　　
-				var mensaje = $('#msj').val();
-				if (mensaje === ''){
+				var message = $('#chatMsg').val();
+				if (message === ''){
 					return false;
 				}
-		      		socket.emit('message', mensaje);
-				$('#msj').val('').focus();
+		      		socket.emit('message', message);
+				$('#chatMsg').val('').focus();
 				return false;
   			});
 	 	});
 
-    		socket.on('message', function(msj, id) {
-			alert("PASS");
-			$('#message').append($('<li>').text(id + " : " + msj));
+    		socket.on('message', function(msg, id) {
+			var userName = <%= user.user_name %> + '';
+			$('#message').append($('<li class="main-list__item list-group-item">').text(userName + " : " + msg));
 		});
 
 
@@ -91,7 +93,7 @@
 					<input id="boardText" type="text" name="title" class="input form-control" placeholder="Enter Title" required>
 			
 					<button id="boardBtn" type="submit" class="btn" style="display:none">Create</button>
-					<label class="addPic right btn btn-info">
+					<label class="margin5 right btn btn-info">
 						Create
 						<input id="fileBtn" type="file" name="image_file" class="right file" style="display:none">
 					</label>
@@ -115,11 +117,15 @@
 				<h3>Chat</h3>
 				<div id="controls">
 					<form id="messageForm" action="">
-			    			<input type="text" id="msj" placeholder="Message here...">
-						<input type="submit" id="btn" value="Enter">
+
+						<input id="chatMsg" type="text" class="input form-control" placeholder="Message here..." required>
+						<input type="submit" id="chatBtn" class="margin5 right btn btn-info" value="Enter">
 		    			</form>
-   				</div>
+				</div><br/><br/><br/>
+				<!--
 				<ul id="message"></ul>
+				-->
+				<ul id="message" class="main-list list-group"></ul>
 			</div>
 		</div>
     	</div>
